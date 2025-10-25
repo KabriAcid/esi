@@ -1,0 +1,61 @@
+
+export type Beneficiary = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  email: string;
+  phoneNumber?: string;
+  category: 'Student' | 'Researcher' | 'Educator';
+  status: 'Active' | 'Inactive' | 'Graduated';
+  totalPayments: number;
+  paymentDate: string;
+  lga: string;
+  state: string;
+  class: string;
+  paymentType: 'Registration Fees' | 'Termly Fees' | 'Book Grant' | 'Transport' | 'Distress';
+};
+
+export type Contributor = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  email: string;
+  phoneNumber?: string;
+  category: 'Individual' | 'Corporate' | 'Foundation';
+  status: 'Active' | 'Inactive' | 'Paused';
+  totalContribution: number;
+  lastContributionDate: string;
+};
+
+export type Contribution = {
+  id: string;
+  contributorId: string;
+  amount: number;
+  date: string;
+  type: 'Donation' | 'Grant' | 'Sponsorship' | 'Membership';
+}
+
+export type FinancialStat = {
+  title: string;
+  value: string;
+  change: string;
+  changeType: 'increase' | 'decrease';
+};
+
+export type MonthlyData = {
+  month: string;
+  income: number;
+  expenses: number;
+};
+
+export type Category = {
+  id:string;
+  name: string;
+};
+
+export type UserProfile = {
+    name: string;
+    email: string;
+};
