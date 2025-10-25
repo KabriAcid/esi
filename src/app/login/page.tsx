@@ -1,16 +1,21 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/hooks/use-auth';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Sparkles } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { LoadingOverlay } from '@/components/ui/loading-overlay';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/use-auth";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Sparkles } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import {
   Dialog,
   DialogContent,
@@ -21,10 +26,10 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { loginSchema } from '@/lib/validation';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { loginSchema } from "@/lib/validation";
 import {
   Form,
   FormControl,
@@ -32,21 +37,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
 export default function LoginPage() {
-  const [resetEmail, setResetEmail] = useState('');
+  const [resetEmail, setResetEmail] = useState("");
   const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
   const { toast } = useToast();
-  
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -54,26 +59,26 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await login(values.email, values.password);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (error) {
       toast({
-        variant: 'destructive',
-        title: 'Login Failed',
+        variant: "destructive",
+        title: "Login Failed",
         description: (error as Error).message,
       });
       setIsLoading(false);
     }
   };
-  
+
   const handlePasswordReset = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Password reset requested for:', resetEmail);
+    console.log("Password reset requested for:", resetEmail);
     toast({
-      title: 'Password Reset',
+      title: "Password Reset",
       description: `If an account exists for ${resetEmail}, a reset link has been sent.`,
     });
     setIsForgotModalOpen(false);
-    setResetEmail('');
+    setResetEmail("");
   };
 
   return (
@@ -83,14 +88,21 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <div className="flex justify-center items-center gap-2 mb-4">
             <Sparkles className="h-10 w-10 text-primary" />
-            <span className="text-3xl font-bold font-headline text-primary">EduAid HQ</span>
+            <span className="text-3xl font-bold font-headline text-primary">
+              ESI
+            </span>
           </div>
           <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
-          <CardDescription>Enter your credentials to access your account.</CardDescription>
+          <CardDescription>
+            Enter your credentials to access your account.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(handleLogin)}
+              className="space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="email"
@@ -114,50 +126,61 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                     <div className="flex items-center justify-between">
-                        <FormLabel>Password</FormLabel>
-                        <Dialog open={isForgotModalOpen} onOpenChange={setIsForgotModalOpen}>
-                            <DialogTrigger asChild>
-                                <button
-                                    type="button"
-                                    className="text-sm font-medium text-primary hover:underline focus:outline-none"
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Password</FormLabel>
+                      <Dialog
+                        open={isForgotModalOpen}
+                        onOpenChange={setIsForgotModalOpen}
+                      >
+                        <DialogTrigger asChild>
+                          <button
+                            type="button"
+                            className="text-sm font-medium text-primary hover:underline focus:outline-none"
+                          >
+                            Forgot password?
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <form onSubmit={handlePasswordReset}>
+                            <DialogHeader>
+                              <DialogTitle>Reset Password</DialogTitle>
+                              <DialogDescription>
+                                Enter your email address below and we'll send
+                                you a link to reset your password.
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-6">
+                              <div className="grid grid-cols-4 items-center gap-4">
+                                <Label
+                                  htmlFor="reset-email"
+                                  className="text-right"
                                 >
-                                    Forgot password?
-                                </button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                                <form onSubmit={handlePasswordReset}>
-                                    <DialogHeader>
-                                        <DialogTitle>Reset Password</DialogTitle>
-                                        <DialogDescription>
-                                        Enter your email address below and we'll send you a link to reset your password.
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <div className="grid gap-4 py-6">
-                                        <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="reset-email" className="text-right">
-                                                Email
-                                            </Label>
-                                            <Input
-                                                id="reset-email"
-                                                type="email"
-                                                value={resetEmail}
-                                                onChange={(e) => setResetEmail(e.target.value)}
-                                                className="col-span-3"
-                                                placeholder="you@example.com"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <DialogFooter>
-                                        <DialogClose asChild>
-                                            <Button type="button" variant="outline">Cancel</Button>
-                                        </DialogClose>
-                                        <Button type="submit">Send Reset Link</Button>
-                                    </DialogFooter>
-                                </form>
-                            </DialogContent>
-                        </Dialog>
+                                  Email
+                                </Label>
+                                <Input
+                                  id="reset-email"
+                                  type="email"
+                                  value={resetEmail}
+                                  onChange={(e) =>
+                                    setResetEmail(e.target.value)
+                                  }
+                                  className="col-span-3"
+                                  placeholder="you@example.com"
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <DialogFooter>
+                              <DialogClose asChild>
+                                <Button type="button" variant="outline">
+                                  Cancel
+                                </Button>
+                              </DialogClose>
+                              <Button type="submit">Send Reset Link</Button>
+                            </DialogFooter>
+                          </form>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                     <FormControl>
                       <Input

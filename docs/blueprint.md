@@ -1,4 +1,4 @@
-# **App Name**: EduAid HQ
+# **App Name**: ESI
 
 ## Core Features:
 
@@ -11,7 +11,7 @@
 ## Style Guidelines:
 
 - Primary color: Deep blue (#5B7FFF), inspired by the UI image's prevalent use of blues. This promotes trust, reliability, and intelligence.
-- Background color: Light gray (#F5F7FA), very slightly desaturated from the primary color.  This aligns to the 'light mode' visual style in the attached image, while ensuring optimal contrast with primary elements.
+- Background color: Light gray (#F5F7FA), very slightly desaturated from the primary color. This aligns to the 'light mode' visual style in the attached image, while ensuring optimal contrast with primary elements.
 - Accent color: Purple (#9BA5FF), is used for subtle highlights. This harmonious color supports a modern look without overpowering the primary brand identity. The primary (#5B7FFF) sits at approximately 218 degrees on the color wheel; this selection sits at approximately 248 degrees.
 - Body and headline font: 'PT Sans' for a humanist sans-serif style that provides a modern look, with larger sizes for better readability.
 - Use a multi-layered shadow effect for KPI cards and other elements, with inspiration from the UI image. All important information and related controls must be easily viewable.

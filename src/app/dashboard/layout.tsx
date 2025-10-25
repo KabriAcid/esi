@@ -1,8 +1,7 @@
+"use client";
 
-'use client';
-
-import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 import {
   SidebarProvider,
   Sidebar,
@@ -10,16 +9,16 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarInset,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { DashboardNav } from '@/components/dashboard-nav';
-import { Header } from '@/components/header';
-import { Sparkles } from 'lucide-react';
-import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { BottomNav } from '@/components/bottom-nav';
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { DashboardNav } from "@/components/dashboard-nav";
+import { Header } from "@/components/header";
+import { Sparkles } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { BottomNav } from "@/components/bottom-nav";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -27,21 +26,21 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.replace('/login');
+      router.replace("/login");
     }
   }, [isAuthenticated, loading, router]);
 
   if (loading || !isAuthenticated) {
     return (
-       <div className="flex h-screen w-screen items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                    <Skeleton className="h-4 w-[250px]" />
-                    <Skeleton className="h-4 w-[200px]" />
-                </div>
-            </div>
+      <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
         </div>
+      </div>
     );
   }
 
@@ -52,8 +51,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   };
 
   const pageTransition = {
-    type: 'tween',
-    ease: 'anticipate',
+    type: "tween",
+    ease: "anticipate",
     duration: 0.5,
   };
 
@@ -63,14 +62,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <SidebarHeader>
           <div className="flex items-center gap-2 p-2 font-headline text-2xl font-bold text-primary">
             <Sparkles className="h-8 w-8" />
-            <span>EduAid HQ</span>
+            <span>ESI</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
           <DashboardNav />
         </SidebarContent>
         <SidebarFooter>
-          <Button variant="outline" className="w-full">Help Center</Button>
+          <Button variant="outline" className="w-full">
+            Help Center
+          </Button>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="flex flex-col">
@@ -91,5 +92,3 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     </SidebarProvider>
   );
 }
-
-    
